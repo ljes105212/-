@@ -1,7 +1,7 @@
 /* ==========================================
-   全域初始化與手機直立防滑動設定
+   全域初始化與基礎設定
    ========================================== */
-* {
+   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -16,57 +16,25 @@ html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-color: #0d0d12;
+    background-color: #0d0e15;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
     color: #ffffff;
-}
-
-/* 橫向提示護欄 */
-#landscape-warning {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #000000;
-    z-index: 9999;
+    display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-}
-
-.warning-box {
-    font-size: 1.2rem;
-    color: #fff;
-}
-
-.rotate-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-    animation: rotatePulse 2s infinite;
-}
-
-@keyframes rotatePulse {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(90deg); }
-}
-
-@media screen and (orientation: landscape) and (max-height: 500px) {
-    #landscape-warning {
-        display: flex;
-    }
 }
 
 /* ==========================================
-   手機 9:16 主容器 (極限相容 375x667 ~ 390x844)
+   橫向 16:9 主容器
    ========================================== */
 #game-container {
     position: relative;
     width: 100vw;
     height: 100vh;
-    max-width: 480px;
-    margin: 0 auto;
+    height: 100dvh;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 16 / 9;
     overflow: hidden;
     background-color: #1a1a24;
     box-shadow: 0 0 30px rgba(0,0,0,0.8);
@@ -79,11 +47,10 @@ html, body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('./images/bg.png');
+    background-image: url('./images/bg.png'); /* 注意檔名大小寫需完全一致 */
     background-size: cover;
     background-position: center;
     z-index: 1;
-    transition: filter 0.5s ease;
 }
 
 #bg-overlay {
@@ -92,11 +59,11 @@ html, body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%);
     z-index: 2;
 }
 
-/* 畫面切換 */
+/* 畫面切換控制 */
 .screen {
     position: absolute;
     top: 0;
@@ -106,7 +73,7 @@ html, body {
     z-index: 10;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.3s ease;
     display: flex;
     flex-direction: column;
 }
@@ -123,14 +90,14 @@ html, body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.35);
 }
 
 .start-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 25px;
     padding: 20px;
 }
 
@@ -140,122 +107,104 @@ html, body {
     line-height: 1.3;
     letter-spacing: 2px;
     color: #ffffff;
-    text-shadow: 0 0 10px rgba(255, 105, 180, 0.8), 0 0 20px rgba(0, 191, 255, 0.6), 2px 2px 4px rgba(0,0,0,0.9);
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.8), 0 0 20px rgba(0, 191, 255, 0.6);
 }
 
 .tap-to-start {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: bold;
     color: #fff;
-    padding: 15px 35px;
+    padding: 14px 38px;
     border-radius: 30px;
     background: linear-gradient(135deg, #ff6090, #4182ff);
     box-shadow: 0 4px 15px rgba(255, 96, 144, 0.5);
-    animation: startBlink 1.5s infinite alternate;
     cursor: pointer;
 }
 
-@keyframes startBlink {
-    0% { transform: scale(0.96); opacity: 0.85; box-shadow: 0 2px 10px rgba(255, 96, 144, 0.4); }
-    100% { transform: scale(1.04); opacity: 1; box-shadow: 0 6px 20px rgba(65, 130, 255, 0.8); }
-}
-
 /* ==========================================
-   2. 主畫面：角色與對話系統 (Main Screen)
+   2. 橫向主遊戲畫面 (Main Screen)
    ========================================== */
 #quiz-progress {
     position: absolute;
-    top: calc(15px + env(safe-area-inset-top));
-    left: 15px;
+    top: 12px;
+    left: 16px;
     z-index: 20;
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 0.9rem;
+    padding: 5px 15px;
+    border-radius: 18px;
+    font-size: 0.88rem;
     font-weight: bold;
-    letter-spacing: 1px;
-    backdrop-filter: blur(4px);
 }
 
 /* 角色立繪區 */
 .character-container {
     position: absolute;
-    bottom: 210px;
-    left: 0;
-    width: 100%;
-    height: 60%;
+    top: 5%;
+    bottom: 22%;
+    left: 4%;
+    right: 4%;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding: 0 5%;
     z-index: 5;
     pointer-events: none;
 }
 
 .char-img {
     height: 100%;
-    max-height: 520px;
+    max-height: 480px;
     object-fit: contain;
     filter: brightness(0.5);
-    opacity: 0.6;
+    opacity: 0.65;
     transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
 }
 
-.char-img.kasumi {
-    transform: translateX(-10px);
-}
-
-.char-img.ichika {
-    transform: translateX(10px);
-}
-
-/* 說話者高亮 */
 .char-img.active-speaker {
     filter: brightness(1.05);
     opacity: 1;
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-6px) scale(1.02);
     z-index: 6;
 }
 
-/* UI 對話與選項區 */
+/* 橫向 UI 容器 */
 .ui-container {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 12px 12px calc(15px + env(safe-area-inset-bottom)) 12px;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    max-width: 960px;
     z-index: 15;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
-/* Galgame 對話框 */
+/* 對話框 */
 .dialogue-box {
     position: relative;
     width: 100%;
-    min-height: 120px;
-    background: rgba(20, 22, 34, 0.88);
-    border: 2px solid rgba(255, 255, 255, 0.25);
-    border-radius: 16px;
-    padding: 35px 18px 15px 18px;
+    min-height: 100px;
+    background: rgba(16, 18, 28, 0.92);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    padding: 26px 20px 12px 20px;
     backdrop-filter: blur(8px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(8px);
     cursor: pointer;
 }
 
 .speaker-name {
     position: absolute;
-    top: -16px;
+    top: -14px;
     left: 20px;
     background: linear-gradient(90deg, #ff5388, #ff825c);
     color: #fff;
     font-weight: bold;
-    font-size: 0.95rem;
-    padding: 4px 18px;
-    border-radius: 12px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+    font-size: 0.9rem;
+    padding: 3px 15px;
+    border-radius: 10px;
 }
 
 .speaker-name.ichika-style {
@@ -263,83 +212,64 @@ html, body {
 }
 
 .dialogue-text {
-    font-size: 1.05rem;
-    line-height: 1.55;
-    color: #f1f1f1;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #ffffff;
     word-break: break-word;
     white-space: pre-wrap;
 }
 
 .next-indicator {
     position: absolute;
-    bottom: 8px;
-    right: 15px;
+    bottom: 6px;
+    right: 14px;
     font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.6);
-    animation: indicatorBounce 1s infinite alternate;
-}
-
-@keyframes indicatorBounce {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-3px); }
 }
 
 /* 問答選項按鈕區 */
 .options-box {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 8px;
     width: 100%;
-    animation: fadeIn 0.3s ease;
 }
 
 .option-btn {
     width: 100%;
-    padding: 12px 16px;
-    background: rgba(35, 40, 60, 0.92);
-    border: 1.5px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
+    padding: 10px 15px;
+    background: rgba(30, 35, 55, 0.95);
+    border: 1.2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
     color: #ffffff;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 600;
     text-align: left;
-    backdrop-filter: blur(6px);
-    transition: background 0.2s, transform 0.1s, border-color 0.2s;
     cursor: pointer;
 }
 
 .option-btn:active {
     transform: scale(0.98);
-    background: rgba(60, 70, 100, 0.95);
-    border-color: #ff5388;
 }
 
 /* 答題結果橫條 */
 .result-banner {
     width: 100%;
     text-align: center;
-    padding: 8px;
-    border-radius: 10px;
+    padding: 6px;
+    border-radius: 6px;
     font-weight: bold;
-    font-size: 1.1rem;
-    animation: bannerPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-size: 1rem;
 }
 
 .result-banner.correct {
     background: rgba(46, 204, 113, 0.9);
     color: #fff;
-    box-shadow: 0 0 12px rgba(46, 204, 113, 0.5);
 }
 
 .result-banner.wrong {
     background: rgba(231, 76, 60, 0.9);
     color: #fff;
-    box-shadow: 0 0 12px rgba(231, 76, 60, 0.5);
-}
-
-@keyframes bannerPop {
-    0% { transform: scale(0.8); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
 }
 
 /* ==========================================
@@ -348,8 +278,7 @@ html, body {
 #ending-screen {
     justify-content: center;
     align-items: center;
-    background: rgba(10, 10, 18, 0.85);
-    backdrop-filter: blur(10px);
+    background: rgba(10, 10, 18, 0.9);
 }
 
 .ending-content {
@@ -357,8 +286,7 @@ html, body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 30px 20px;
-    width: 90%;
+    padding: 20px;
 }
 
 .congrats-text {
@@ -369,56 +297,29 @@ html, body {
 }
 
 .title-text {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #ddd;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .master-badge {
-    font-size: 2.3rem;
+    font-size: 2.2rem;
     font-weight: 900;
-    background: linear-gradient(45deg, #ff5388, #ffde59, #5ce0ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(255, 222, 89, 0.4);
-    margin-bottom: 30px;
-    animation: badgePulse 2s infinite alternate;
-}
-
-@keyframes badgePulse {
-    0% { transform: scale(0.95); }
-    100% { transform: scale(1.05); }
-}
-
-.the-end-text {
-    font-size: 1.2rem;
-    letter-spacing: 4px;
-    color: #888;
-    margin-bottom: 35px;
+    color: #ffde59;
+    margin-bottom: 20px;
 }
 
 .restart-btn {
-    padding: 14px 40px;
-    font-size: 1.05rem;
+    padding: 12px 35px;
+    font-size: 1rem;
     font-weight: bold;
     color: #fff;
     background: linear-gradient(135deg, #2575fc, #6a11cb);
     border: none;
     border-radius: 25px;
-    box-shadow: 0 4px 15px rgba(37, 117, 252, 0.4);
     cursor: pointer;
 }
 
-.restart-btn:active {
-    transform: scale(0.95);
-}
-
-/* 通用輔助 Class */
 .hidden {
     display: none !important;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
 }
