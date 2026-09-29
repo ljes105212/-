@@ -14,7 +14,7 @@ const questions = [
     },
     {
         speaker: "星乃一歌",
-        question: "chinthm 是不是手遊？",
+        question: "CHUNITHM 是不是手遊？",
         options: ["是", "不是", "幹社長都不揪", "社長求救！(我不會理你哈哈）"],
         correct: 1,
         reactionCorrect: "原來如此……所以它不是手遊！",
