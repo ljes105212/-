@@ -47,8 +47,10 @@ html, body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* 正確寫法 */
-background-image: url('./images/bg.png'); /* 注意檔名大小寫需完全一致 */
+   #bg-layer {
+    /* 請確定 bg.png 的大小寫跟 GitHub 上的檔案完全一致 */
+    background-image: url('./images/bg.png'); 
+}
     background-size: cover;
     background-position: center;
     z-index: 1;
