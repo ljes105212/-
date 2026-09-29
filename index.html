@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>異世界音遊記憶問答</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 裝置橫向提示 -->
+    <div id="landscape-warning">
+        <div class="warning-box">
+            <div class="rotate-icon">📱</div>
+            <p>請將手機轉為直向遊玩</p>
+        </div>
+    </div>
+
+    <!-- 主遊戲容器 -->
+    <div id="game-container">
+        
+        <!-- 背景圖層 -->
+        <div id="bg-layer"></div>
+        <div id="bg-overlay"></div>
+
+        <!-- 畫面 1: 開始畫面 -->
+        <div id="start-screen" class="screen active">
+            <div class="start-content">
+                <h1 class="game-title">異世界音遊<br>記憶問答</h1>
+                <div class="tap-to-start" id="start-btn">TAP TO START</div>
+            </div>
+        </div>
+
+        <!-- 畫面 2: Galgame 劇情與問答主畫面 -->
+        <div id="main-screen" class="screen">
+            
+            <!-- 進度標示 -->
+            <div id="quiz-progress" class="hidden">第 <span id="current-q-num">1</span> / 10 題</div>
+
+            <!-- 角色立繪區域 -->
+            <div class="character-container">
+                <img id="char-kasumi" class="char-img kasumi" src="./images/kasumi.png" alt="戶山香澄" onerror="console.error('無法載入圖片：' + this.src)">
+                <img id="char-ichika" class="char-img ichika" src="./images/ichika.png" alt="星乃一歌" onerror="console.error('無法載入圖片：' + this.src)">
+            </div>
+
+            <!-- UI 對話區與選項目錄 -->
+            <div class="ui-container">
+                
+                <!-- 問答選項區 -->
+                <div id="options-container" class="options-box hidden">
+                    <button class="option-btn" data-index="0">A. 選項一</button>
+                    <button class="option-btn" data-index="1">B. 選項二</button>
+                    <button class="option-btn" data-index="2">C. 選項三</button>
+                    <button class="option-btn" data-index="3">D. 選項四</button>
+                </div>
+
+                <!-- 答題結果回饋橫條 -->
+                <div id="result-banner" class="result-banner hidden"></div>
+
+                <!-- Galgame 對話框 -->
+                <div id="dialogue-box" class="dialogue-box">
+                    <div id="speaker-name" class="speaker-name">戶山香澄</div>
+                    <div id="dialogue-text" class="dialogue-text">...</div>
+                    <div id="next-indicator" class="next-indicator">▼ 點擊繼續</div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 畫面 3: 最終結局畫面 -->
+        <div id="ending-screen" class="screen">
+            <div class="ending-content">
+                <div class="congrats-text">恭喜你！</div>
+                <div class="title-text">你已經成為——</div>
+                <div class="master-badge">音遊大師！！</div>
+                <div class="the-end-text">THE END</div>
+                <button id="restart-btn" class="restart-btn">重新遊玩</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
