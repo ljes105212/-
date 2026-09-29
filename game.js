@@ -125,9 +125,8 @@ const endingScreen = document.getElementById("ending-screen");
 const startBtn = document.getElementById("start-btn");
 const restartBtn = document.getElementById("restart-btn");
 
-const charKasumi = document.getElementById("char-Kasumi");
-const charIchika = document.getElementById("char-Ichika");
-
+const charKasumi = document.getElementById("char-kasumi");
+const charIchika = document.getElementById("char-ichika");
 const dialogueBox = document.getElementById("dialogue-box");
 const speakerNameEl = document.getElementById("speaker-name");
 const dialogueTextEl = document.getElementById("dialogue-text");
