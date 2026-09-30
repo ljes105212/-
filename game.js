@@ -47,7 +47,7 @@ const questions = [
     {
         speaker: "星乃一歌",
         question: "社長介紹的第一款音遊是什麼？",
-        options: ["touch me", "toUch Me", "Touch Me", "Touch me"],
+        options: ["touch me", "toUch Me", "TOUCH ME", "Touch me"],
         correct: 3,
         reactionCorrect: "是 Touch me！這個我記起來了！",
         reactionWrong: "大小寫……好像很重要……"
